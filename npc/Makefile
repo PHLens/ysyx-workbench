@@ -37,15 +37,13 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 		$(addprefix -CFLAGS , $(CXXFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
 		--Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 
-all: default
-
 run: $(BIN)
 	@$^
 
 clean:
 	rm -rf $(BUILD_DIR)
 
-sim: run
+sim: default
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 
 include ../Makefile
