@@ -1,10 +1,14 @@
 module top(
-  input [1:0] Y,
-  input [1:0] X0,
-  input [1:0] X1,
-  input [1:0] X2,
-  input [1:0] X3,
-  output reg[1:0] F
+  input [7:0] x,
+  input en,
+  output reg[2:0] y,
+  output reg[6:0] z,
+  output reg out
 );
-  mux4to1 mux(Y, X0, X1, X2, X3, F);
+  encoder83 encoder(x, en, y);
+  bcd7seg seg(y, z);
+  always @(x) begin
+    if (x == 0) out = 0;
+    else out = 1;
+  end
 endmodule
