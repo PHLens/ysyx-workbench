@@ -1,14 +1,12 @@
 module top(
-  input [7:0] x,
-  input en,
-  output reg[2:0] y,
-  output reg[6:0] z,
-  output reg out
+  input [3:0] a,
+  input [3:0] b,
+  input [2:0] mode,
+  output reg[3:0] sum,
+  output N,
+  output Z,
+  output C,
+  output V
 );
-  encoder83 encoder(x, en, y);
-  bcd7seg seg(y, z);
-  always @(x) begin
-    if (x == 0) out = 0;
-    else out = 1;
-  end
+  alu #(4)alu1(sum, N, Z, C, V, a, b, mode);
 endmodule

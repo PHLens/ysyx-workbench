@@ -5,6 +5,5 @@ module adder #(DATA_LEN = 1) (
   output [DATA_LEN-1:0] sum,
   output cout
 );
-  assign sum = a ^ b;
-  assign cout = a & cin | b & cin | a & b;
+  assign {cout, sum} = a + b + { {DATA_LEN-1{1'b0}}, cin};
 endmodule

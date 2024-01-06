@@ -1,7 +1,10 @@
 top=top
 
-x (SW7, SW6, SW5, SW4, SW3, SW2, SW1, SW0)
-en (SW8)
-y (LD2, LD1, LD0)
-out (LD4)
-z (SEG0A, SEG0B, SEG0C, SEG0D, SEG0E, SEG0F, SEG0G)
+a (SW3, SW2, SW1, SW0)
+b (SW8, SW7, SW6, SW5)
+mode (SW12, SW11, SW10)
+sum (LD3, LD2, LD1, LD0)
+N (LD5)
+Z (LD7)
+C (LD9)
+V (LD11)
