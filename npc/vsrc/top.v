@@ -1,14 +1,9 @@
 module top(
-  input [7:0] init,
-  input clk,
-  output [6:0] h,
-  output [6:0] l,
-  output a,
-  output [7:0] o
+  input [7:0] din,
+  input [2:0] shamt,
+  input LR,
+  input AL,
+  output [7:0] dout
 );
-  wire [7:0] out;
-  LFSR lfsr(init, clk, out, a);
-  bcd7seg seg1(out[7:4], h);
-  bcd7seg seg2(out[3:0], l);
-  assign o = out;
+  BarrelShifter bs(din, shamt, LR, AL, dout);
 endmodule
