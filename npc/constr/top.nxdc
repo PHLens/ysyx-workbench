@@ -1,7 +1,6 @@
 top=top
 
-LR (SW0)
-AL (SW1)
-shamt (SW4, SW3, SW2)
-din (SW12, SW11, SW10, SW9, SW8, SW7, SW6, SW5)
-dout (LD12, LD11, LD10, LD9, LD8, LD7, LD6, LD5)
+clk (SW0)
+reset (SW1)
+in (SW2)
+out (LD0)

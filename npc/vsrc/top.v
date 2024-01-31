@@ -1,9 +1,8 @@
 module top(
-  input [7:0] din,
-  input [2:0] shamt,
-  input LR,
-  input AL,
-  output [7:0] dout
+  input clk,
+  input reset,
+  input in,
+  output out
 );
-  BarrelShifter bs(din, shamt, LR, AL, dout);
+  FSMs fsm(clk, reset, in, out);
 endmodule
