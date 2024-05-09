@@ -10,4 +10,5 @@
 !*.nxdc
 !.gitignore
 !README.md
+!*.txt
 build/
