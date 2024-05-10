@@ -1,5 +1,5 @@
 VERILATOR = verilator
-VERILATOR_CFLAGS=--cc --build -Wall --trace -j 0
+VERILATOR_CFLAGS=--cc --build --timing -Wall --trace -j 0
 
 NXDC_FILES = constr/top.nxdc
 INC_PATH ?=
