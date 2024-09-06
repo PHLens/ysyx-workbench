@@ -18,6 +18,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include <memory/paddr.h>
 
 static int is_batch_mode = false;
 
@@ -48,6 +49,68 @@ static int cmd_c(char *args) {
 }
 
 
+static int cmd_si(char *args) {
+  if (args == NULL) {
+    cpu_exec(1);
+  } else {
+    char *arg = strtok(args, " ");
+    cpu_exec(atoi(arg));
+  }
+  return 0;
+}
+
+
+static int cmd_info(char *args) {
+  if (args == NULL) {
+    printf("You need to specify an argument for `info` (`r` or `w`).\n");
+  } else {
+    char *arg = strtok(args, " ");
+    if (*arg == 'r') {
+      isa_reg_display();
+    } else if (*arg == 'w') {
+
+    }
+  }
+  return 0;
+}
+
+
+static paddr_t get_addr(char *expr) {
+  paddr_t addr = 0;
+  if (expr[0] == '0' && expr[1] == 'x') {
+    expr = expr + 2;
+  }
+  for (int i = 0; i < strlen(expr); i++) {
+    addr <<= 4;
+    uint8_t tmp = expr[i] - '0';
+    addr = addr ^ tmp;
+  }
+  return addr;
+}
+
+
+static int cmd_x(char *args) {
+  if (args == NULL) {
+    printf("You need to specify arguments for `x`.\n");
+  } else {
+    // Get N
+    char *arg = strtok(args, " ");
+    int N = atoi(arg);
+
+    // Get expression
+    char *expr = arg + strlen(arg) + 1;
+    paddr_t addr = get_addr(expr);
+    printf("\033[;34m0x%x\033[0m: ", addr);
+    for (int i = 0; i < N; i++) {
+      word_t data = paddr_read(addr++, 1);
+      printf("0x%.2x\t", data);
+    }
+    printf("\n");
+  }
+  return 0;
+}
+
+
 static int cmd_q(char *args) {
   return -1;
 }
@@ -64,7 +127,9 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-
+  { "si", "Step instruction", cmd_si },
+  { "info", "Print register or watchpoint", cmd_info },
+  { "x", "Scan memory", cmd_x },
 };
 
 #define NR_CMD ARRLEN(cmd_table)

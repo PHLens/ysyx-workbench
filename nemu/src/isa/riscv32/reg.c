@@ -15,6 +15,7 @@
 
 #include <isa.h>
 #include "local-include/reg.h"
+#include <memory/vaddr.h>
 
 const char *regs[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
@@ -24,6 +25,10 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
+  for (int i = 0; i < 32; i++) {
+    vaddr_t addr = i * 32;
+    printf("%-15s0x%-20x%-25d\n", regs[i], addr, gpr(i));
+  }
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
